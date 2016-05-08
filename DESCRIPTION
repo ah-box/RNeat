@@ -1,0 +1,16 @@
+Package: RNeat
+Type: Package
+Title: Neuroevolution of Augmenting Topologies - NEAT
+Version: 0.1.0
+Author: Andrew Hunter <a.hunteruk@gmail.com>
+Description: Implementation of the Neuroevolution of Augmenting Topologies (NEAT) algorithm
+  for training neural networks through a genetic evolution approach. This is a port of the LUA
+  code produced by Seth Bling as made famous through MarI/O video.
+Imports: igraph, animation, methods
+Maintainer: Andrew Hunter <a.hunteruk@gmail.com>
+License: GPL
+LazyData: TRUE
+RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
