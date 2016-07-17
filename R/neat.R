@@ -866,6 +866,14 @@ newNEATSimulation <- function(neatConfig,processInitialStateFunc,
 #newFitness <- FitnessUpdateFunc(oldState,updatedState,oldFitness)
 #bool <- TerminationCheckFunc(oldState,updatedState,oldFitness,newFitness)
 
+calcTotalNumOfGenomes <- function(simulation){
+  counter <- 0
+  for(i in seq(1,length(simulation$Pool$species))){
+    counter <- counter + length(simulation$Pool$species[[i]]$genomes)
+  }
+  return(counter)
+}
+
 simulationRunner <- function(simulation,speciesNum,genomeNum,plotScene, pctSimulated,framesPerSecond=1){
   i<-speciesNum
   j <-genomeNum
@@ -941,9 +949,10 @@ NEATSimulation.RunSingleGeneration <- function(simulation, createVideo=F, videoP
 
   print("Starting simulations...")
   counter <- 1
+  nTot <- calcTotalNumOfGenomes(simulation)
   for(i in seq(1,length(simulation$Pool$species))){
     for(j in seq(1,length(simulation$Pool$species[[i]]$genomes))){
-      simulation <- simulationRunner(simulation,i,j,F,100*counter/simulation$Config$SpeciesPopulation)
+      simulation <- simulationRunner(simulation,i,j,F,100*counter/nTot)
       counter <- counter + 1
     }
   }

@@ -15,32 +15,32 @@ config.connectiongene.drawwidth <- 60
 config.connectiongene.drawheight <- 60
 config.connectiongene.textmargin <- 3
 
-#' Function to create a blank canvas / scene for drawing objects onto later
+# Function to create a blank canvas / scene for drawing objects onto later
 #' @export
-#' @param bottomLeftX Bottom left x co-ordinate of the canvas
-#' @param bottomLeftY Bottom left y co-ordinate of the canvas
-#' @param width Canvas width
-#' @param height Canvas height
-#' @param main Text title of the plot
-#' @param xlab Label for x-axis
-#' @param ylab Label for y-axis
-#' @param ann See plot ann
-#' @param xaxt See plot xaxt
-#' @param yaxt See plot yaxt
-#' @param xlim See plot xlim
-#' @param ylim See plot ylim
-#' @param frame.plot Bool to enable or disable drawing of a frame around the canvas
+# @param bottomLeftX Bottom left x co-ordinate of the canvas
+# @param bottomLeftY Bottom left y co-ordinate of the canvas
+# @param width Canvas width
+# @param height Canvas height
+# @param main Text title of the plot
+# @param xlab Label for x-axis
+# @param ylab Label for y-axis
+# @param ann See plot ann
+# @param xaxt See plot xaxt
+# @param yaxt See plot yaxt
+# @param xlim See plot xlim
+# @param ylim See plot ylim
+# @param frame.plot Bool to enable or disable drawing of a frame around the canvas
 createSceneFunc <- function(bottomLeftX, bottomLeftY, width,height,main="",xlab="",ylab="",ann=T,xaxt=NULL,yaxt=NULL,xlim=NULL,ylim=NULL,frame.plot=T){
   plot(c(bottomLeftX, bottomLeftX+width), c(bottomLeftY,bottomLeftY+height), type = "n",ann=ann, xaxt=xaxt, yaxt=yaxt,xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,frame.plot=frame.plot )
 }
 
-#' Function to draw a box on the scene
-#' @param topLeftX x co-ordinate of top left corner of box
-#' @param topLeftY y co-ordinate of top left corner of box
-#' @param width Width of the box
-#' @param height Height of the box
-#' @param fillColour Colour to fill the box in with
-#' @param borderColour Colour of the box edge
+# Function to draw a box on the scene
+# @param topLeftX x co-ordinate of top left corner of box
+# @param topLeftY y co-ordinate of top left corner of box
+# @param width Width of the box
+# @param height Height of the box
+# @param fillColour Colour to fill the box in with
+# @param borderColour Colour of the box edge
 #' @export
 createBoxFunc <- function(topLeftX, topLeftY, width, height, fillColour=NA, borderColour="black"){
   polygon(c(topLeftX,topLeftX+width,topLeftX+width,topLeftX),
@@ -48,12 +48,12 @@ createBoxFunc <- function(topLeftX, topLeftY, width, height, fillColour=NA, bord
           col = fillColour, border=borderColour)
 }
 
-#' Function to draw a circle on the scene
-#' @param centerX x co-ordinate of the center of the circle
-#' @param centerY y co-ordinate of the center of the circle
-#' @param radius Radius of the circle
-#' @param fillColour Colour to fill the circle in with
-#' @param borderColour Colour of the circle edge
+# Function to draw a circle on the scene
+# @param centerX x co-ordinate of the center of the circle
+# @param centerY y co-ordinate of the center of the circle
+# @param radius Radius of the circle
+# @param fillColour Colour to fill the circle in with
+# @param borderColour Colour of the circle edge
 #' @export
 createCircleFunc <- function(centerX,centerY,radius,fillColour=NA, borderColour="black"){
   symbols(centerX,centerY,circles=radius,inches=F,add=T,fg=borderColour,bg=fillColour)
