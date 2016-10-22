@@ -2,6 +2,7 @@
 
 S3method(plot,NEATFormulaSimulation)
 S3method(plot,rneatneuralnet)
+export(NEATSimulation.GetStateHistoryForGenomeAndSpecies)
 export(NEATSimulation.RunSingleGeneration)
 export(compute)
 export(createBoxFunc)

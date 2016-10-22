@@ -984,6 +984,60 @@ NEATSimulation.RunSingleGeneration <- function(simulation, createVideo=F, videoP
   return (simulation)
 }
 
+#' Runs a genome and tracks the state history (will run the most fit by default)
+#'
+#' Runs a genome and tracks the state history (will run the most fit by default)
+#' @param simulation Takes a NEATSimulation class
+#' @param genomeNum the genome number to run
+#' @param speciesNum the species number to run
+#' @return State history
+#' @export
+NEATSimulation.GetStateHistoryForGenomeAndSpecies <- function(simulation, genomeNum=NA, speciesNum=NA){
+    assertTrueFunc(is(simulation,"NEATSimulation"),"simulation must be a of class NEATSimulation")
+ if(is.na(genomeNum) || is.na(speciesNum)){
+    print("No genome or species specified, using the most fit genome")
+    genome <- findMostFitGenome(simulation)
+ } else {
+    assertTrueFunc(is(genomeNum,"numeric"),"genomeNum must be numeric")
+    assertTrueFunc(is(speciesNum,"numeric"),"speciesNum must be numeric")
+    genome <- simulation$Pool$species[[i]]$genomes[[j]]
+    assertTrueFunc(is(genome,"genome"),"Invalid species or genome number")
+ }
+
+
+    state <- simulation$ProcessInitialStateFunc()
+    stateHist <- as.data.frame(t(unlist(state)))
+    fitness <- 0
+    genome$Fitness <- fitness
+    genome <- generateNetwork(genome,simulation$Config)
+
+    #Repeat acts like a do-while loop
+    frameNum <- 0
+    repeat{
+
+      neuralNetInputs <- simulation$ProcessStateToNeuralInputFunc(state)
+      neuralNetOutputs <- evaluateNetwork(genome$Network,neuralNetInputs,simulation$Config)
+      updatedState<-simulation$ProcessUpdateStateFunc(state,neuralNetOutputs)
+      updatedFitness <- simulation$FitnessUpdateFunc(state,updatedState,genome$Fitness)
+      genome$Fitness <- updatedFitness
+
+      stateHist<-rbind(stateHist,unlist(updatedState))
+
+      if(simulation$TerminationCheckFunc(frameNum,state,updatedState,fitness,updatedFitness)){
+        break
+      }
+
+      fitness <- updatedFitness
+      state <- updatedState
+      frameNum <- frameNum + 1
+    }
+    genome <- updatedFitness
+
+  return((stateHist))
+
+}
+
+
 plotPerformanceTracker <- function(data){
   plot(x=data[,"generation"],y=data[,"maxFitness"],col="blue",main="Fitness",xlab="Generation",ylab="Fitness",type="o",ylim=c(0,max(data[,"maxFitness"])),lwd=2)
   lines(x=data[,"generation"],y=data[,"minFitness"],col="red",type="o",lwd=2)
