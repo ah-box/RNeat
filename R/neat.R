@@ -1037,6 +1037,10 @@ NEATSimulation.GetStateHistoryForGenomeAndSpecies <- function(simulation, genome
 
 }
 
+#' @export
+plot.NEATSimulation <- function(simulation){
+  plotPerformanceTracker(simulation$PerformanceTracker)
+}
 
 plotPerformanceTracker <- function(data){
   plot(x=data[,"generation"],y=data[,"maxFitness"],col="blue",main="Fitness",xlab="Generation",ylab="Fitness",type="o",ylim=c(0,max(data[,"maxFitness"])),lwd=2)
